@@ -1,0 +1,77 @@
+<?php
+/*
+ * @file
+ * "Leaflet new  UNEP Maps" adds more map options to the Leaflet module.
+ */
+
+
+/**
+ * Implements hook_leaflet_map_info().
+ */
+function leaflet_new_leaflet_map_info() {
+    $prot = '//';
+
+    // As used by most.
+    $zxy = '{z}/{x}/{y}.png';
+
+    return [
+        'UNBASEMAP_FINAL' => [
+          'label' => 'UNBASEMAP_FINAL',
+          'description' => t('Custom map UNEP.'),
+          'settings' => [
+            'dragging' => TRUE,
+            'touchZoom' => TRUE,
+            'scrollWheelZoom' => TRUE,
+            'doubleClickZoom' => TRUE,
+            'zoomControl' => TRUE,
+            'attributionControl' => FALSE,
+            'trackResize' => TRUE,
+            'fadeAnimation' => TRUE,
+            'zoomAnimation' => TRUE,
+            'closePopupOnClick' => TRUE,
+            'layerControl' => TRUE,
+            'showCoverageOnHover' => FALSE,
+            'minZoom' => 1,
+            'maxZoom' => 5,
+            // 'zoom' => 15, // set the map zoom fixed to 15.
+          ],
+
+          'layers' => array(
+            'World Ocean' => array(
+              //'urlTemplate' => '//api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=sk.eyJ1IjoiaHVtcGhyZXltdWhpdSIsImEiOiJja2NobnF4encwdnNnMzFscGQ0cGxyYzNvIn0.qRzTCi0owKuwhFNm839bBw',
+              'urlTemplate' => 'https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}.png',
+              'options' => array(
+                'attribution' => 'esri',
+                // 'detectRetina' => TRUE,
+                'subdomains' => array(0, 1, 2, 3),
+              ),
+            ),
+
+            'World Ocean Reference' => array(
+              // Note 'lyrs=h' for transparent overlay. http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer
+              'urlTemplate' => 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/MapServer/tile/{z}/{y}/{x}.png',
+              'layer_type' => 'overlay', //this gives you the ability to overlay transparent maps
+              'options' => array(
+                'attribution' => 'esri',
+                'detectRetina' => TRUE,
+                'subdomains' => array(0, 1, 2, 3),
+              ),
+            ),
+          ),
+
+
+          // Uncomment the lines below to use a custom icon.
+          /*'icon' => array(
+            'iconUrl'       => '/sites/default/files/icon.png',
+            'iconSize'      => array('x' => '20', 'y' => '40'),
+            'iconAnchor'    => array('x' => '20', 'y' => '40'),
+            'popupAnchor'   => array('x' => '-8', 'y' => '-32'),
+            'shadowUrl'     => '/sites/default/files/icon-shadow.png',
+            'shadowSize'    => array('x' => '25', 'y' => '27'),
+            'shadowAnchor'  => array('x' => '0', 'y' => '27'),
+          ),*/
+          // Enable and configure plugins in the plugins array.
+          'plugins' => [],
+        ],
+      ];
+}

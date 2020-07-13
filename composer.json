@@ -1,0 +1,10 @@
+{
+    "name": "leaflet_new",
+    "description": "Enables the creation extra map resources",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "require": {
+      "drupal/leaflet": "^1.0"
+    }
+}
+  

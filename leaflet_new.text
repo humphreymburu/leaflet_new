@@ -1,0 +1,72 @@
+<?php
+/*
+ * @file
+ * "Leaflet new  UNEP Maps" adds more map options to the Leaflet module.
+ */
+
+
+/**
+ * Implements hook_leaflet_map_info().
+ */
+function leaflet_new_leaflet_map_info() {
+    $prot = '//';
+
+    // As used by most.
+    $zxy = '{z}/{x}/{y}.png';
+
+    return [
+        'UNBASEMAP_FINAL' => [
+          'label' => 'UNBASEMAP_FINAL',
+          'description' => t('Custom map UNEP.'),
+          'settings' => [
+            'dragging' => TRUE,
+            'touchZoom' => TRUE,
+            'scrollWheelZoom' => TRUE,
+            'doubleClickZoom' => TRUE,
+            'zoomControl' => TRUE,
+            'attributionControl' => FALSE,
+            'trackResize' => TRUE,
+            'fadeAnimation' => TRUE,
+            'zoomAnimation' => TRUE,
+            'closePopupOnClick' => TRUE,
+            'layerControl' => FALSE,
+            'showCoverageOnHover' => FALSE,
+            'minZoom' => 1,
+            'maxZoom' => 18,
+            // 'zoom' => 15, // set the map zoom fixed to 15.
+          ],
+          'layers' => [
+            'base' => [
+             'urlTemplate' => 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}.png',
+              'options' => [
+                'attribution' => 'UNEP',
+                'detectRetina' => TRUE,
+                'subdomains' => array(0, 1, 2, 3)
+              ],
+            ],
+            
+            'overlay' => [
+              'urlTemplate' => 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}.png',
+               'options' => [
+                 'attribution' => 'UNEP',
+                 'detectRetina' => TRUE,
+                 'subdomains' => array(0, 1, 2, 3)
+               ]
+             ],
+
+          ],
+          // Uncomment the lines below to use a custom icon.
+          /*'icon' => array(
+            'iconUrl'       => '/sites/default/files/icon.png',
+            'iconSize'      => array('x' => '20', 'y' => '40'),
+            'iconAnchor'    => array('x' => '20', 'y' => '40'),
+            'popupAnchor'   => array('x' => '-8', 'y' => '-32'),
+            'shadowUrl'     => '/sites/default/files/icon-shadow.png',
+            'shadowSize'    => array('x' => '25', 'y' => '27'),
+            'shadowAnchor'  => array('x' => '0', 'y' => '27'),
+          ),*/
+          // Enable and configure plugins in the plugins array.
+          'plugins' => [],
+        ],
+      ];
+}
